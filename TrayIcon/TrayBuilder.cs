@@ -1,5 +1,6 @@
 ﻿using Gtk;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Server.Kestrel.Transport.Quic;
 using MonoMac.OpenGL;
 
 namespace EgweneService.TrayIcon;
@@ -11,11 +12,7 @@ public class TrayBuilder
 
     private TrayIcon _trayIcon;
 
-    public TrayBuilder()
-    {
-
-
-    }
+    public TrayBuilder() {}
 
 #pragma warning disable CA1416
     public TrayIconWithContextMenu CreateIcon()
@@ -25,24 +22,51 @@ public class TrayBuilder
 
         var trayIcon = new TrayIconWithContextMenu
         {
+            UseStandardTooltip = true,
+            ContextMenu = GenerateContextMenu(),
             Icon = icon.Handle,
             ToolTip = "Egwene Service"
         };
 
-        
-        trayIcon.ContextMenu = new PopupMenu
+        _trayIcon = trayIcon;
+
+        return trayIcon;
+    }
+
+
+
+    private PopupMenu GenerateContextMenu()
+    {
+        return new PopupMenu()
         {
             Items =
             {
-                new PopupMenuItem("Exit", (sender, args) =>
-                {
-                    trayIcon.Dispose();
-                    Environment.Exit(0);
-                }),
-            },
+                new PopupMenuSeparator(),
+                new PopupMenuItem("About", (_,_) => About()),
+                new PopupMenuItem("Config", (_,_) => Config()),
+                new PopupMenuSeparator(),
+                new PopupMenuItem("Exit", (_,_) => Quit()),
+                new PopupMenuSeparator(),
+            }
         };
-        
-        return trayIcon;
     }
 #pragma warning restore CA1416
+
+    private void Quit()
+    {
+        _trayIcon.Dispose();
+        Environment.Exit(0);
+    }
+
+    private void About()
+    {
+        
+    }
+
+    private void Config()
+    {
+        
+    }
+
+    
 }
