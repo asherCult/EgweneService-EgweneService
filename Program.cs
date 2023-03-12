@@ -1,7 +1,11 @@
-using System.Runtime.CompilerServices;
 using EgweneService.Data;
 using EgweneService.Data.Local;
+using EgweneService.TrayIcon;
+using H;
 using Microsoft.EntityFrameworkCore;
+using H.NotifyIcon.Core;
+using H.NotifyIcon.EfficiencyMode;
+using Microsoft.EntityFrameworkCore.Diagnostics.Internal;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,10 +14,8 @@ var services = builder.Services;
 // Add services to the container.
 services.AddControllersWithViews();
 
-var dbContext = new DataContext();
-dbContext.Database.EnsureCreated();
-
-services.AddDbContext<DataContext>();
+services.AddDbContext<DataContext>(options =>
+    options.UseSqlite());
 
 
 // init rest and init swagger
@@ -55,5 +57,10 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+
+var trayBuilder = new TrayBuilder();
+var trayIcon = trayBuilder.CreateIcon();
+trayIcon.Create();
 
 app.Run();
