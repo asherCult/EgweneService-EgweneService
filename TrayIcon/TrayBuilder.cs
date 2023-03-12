@@ -18,7 +18,7 @@ public class TrayBuilder
     }
 
 #pragma warning disable CA1416
-    public TrayIcon CreateIcon()
+    public TrayIconWithContextMenu CreateIcon()
     {
 
         var icon = new System.Drawing.Icon(Path.Combine(AppContext.BaseDirectory, "Resources", "icon.ico"));
@@ -28,7 +28,7 @@ public class TrayBuilder
             Icon = icon.Handle,
             ToolTip = "Egwene Service",
         };
-
+        
         trayIcon.ContextMenu = new PopupMenu
         {
             Items =
@@ -40,7 +40,7 @@ public class TrayBuilder
                 }),
             },
         };
-
+        
         return trayIcon;
     }
 #pragma warning restore CA1416

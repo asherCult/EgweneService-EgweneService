@@ -2,11 +2,11 @@
 
     <PropertyGroup>
         <TargetFramework>net7.0</TargetFramework>
-        <OutputType>Exe</OutputType>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
+        <!--<OutputType>WinExe</OutputType>-->
     </PropertyGroup>
-
+    
     <ItemGroup>
         <!--<PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="1.1.0" />-->
         <PackageReference Include="H.NotifyIcon" Version="2.0.77" />
