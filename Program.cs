@@ -1,15 +1,23 @@
+using System.Runtime.CompilerServices;
 using EgweneService.Data;
 using EgweneService.Data.Local;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddControllersWithViews();
+var services = builder.Services;
 
-builder.Services.AddDbContext<DataContext>();
+// Add services to the container.
+services.AddControllersWithViews();
+
+var dbContext = new DataContext();
+dbContext.Database.EnsureCreated();
+
+services.AddDbContext<DataContext>();
+
 
 // init rest and init swagger
-var swaggerBuilder = new SwaggerBuilder(builder);
+var swaggerBuilder = new SwaggerBuilder(services);
 swaggerBuilder.EnableSwagger();
 
 

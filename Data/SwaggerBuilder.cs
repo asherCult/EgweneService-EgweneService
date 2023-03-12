@@ -5,16 +5,16 @@ namespace EgweneService.Data;
 public class SwaggerBuilder
 {
 
-    private readonly WebApplicationBuilder _builder;
-    public SwaggerBuilder(WebApplicationBuilder builder)
+    private readonly IServiceCollection _services;
+    public SwaggerBuilder(IServiceCollection services)
     {
-        _builder = builder;
+        _services = services;
     }
 
     public void EnableSwagger()
     {
-        _builder.Services.AddEndpointsApiExplorer();
-        _builder.Services.AddSwaggerGen(c =>
+        _services.AddEndpointsApiExplorer();
+        _services.AddSwaggerGen(c =>
         {
             c.SwaggerDoc("v1", new OpenApiInfo
             {

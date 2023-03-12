@@ -5,12 +5,10 @@ namespace EgweneService.Data.Local;
 
 public class DataContext : DbContext
 {
-/*
+    
     public DataContext() : base()
     {
-        
-        
-    }*/
+    }
 
     public DbSet<Character> Characters { get; set; }
     public DbSet<Quest> Quests { get; set; }
@@ -28,6 +26,7 @@ public class DataContext : DbContext
     {
         options.UseSqlite(Configuration.GetConnectionString("EgweneDb"));
     }
+    
     
 
     
