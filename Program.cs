@@ -1,11 +1,10 @@
+using System.Drawing.Text;
 using EgweneService.Data;
 using EgweneService.Data.Local;
 using EgweneService.TrayIcon;
-using H;
+using GLib;
+using Gtk;
 using Microsoft.EntityFrameworkCore;
-using H.NotifyIcon.Core;
-using H.NotifyIcon.EfficiencyMode;
-using Microsoft.EntityFrameworkCore.Diagnostics.Internal;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,6 +31,7 @@ app.UseSwaggerUI(c =>
 {
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "Egwene API v1");
 });
+
 
 // setup default rest endpoints
 var restBuilder = new RestBuilder(app);
@@ -61,6 +61,8 @@ app.MapControllerRoute(
 
 var trayBuilder = new TrayBuilder();
 var trayIcon = trayBuilder.CreateIcon();
+
+trayIcon.ToolTip = "test";
 trayIcon.Create();
 
 app.Run();

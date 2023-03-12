@@ -1,5 +1,6 @@
 ﻿using Gtk;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Server.Kestrel.Transport.Quic;
 using MonoMac.OpenGL;
 
 namespace EgweneService.TrayIcon;
@@ -11,37 +12,61 @@ public class TrayBuilder
 
     private TrayIcon _trayIcon;
 
-    public TrayBuilder()
-    {
-
-
-    }
+    public TrayBuilder() {}
 
 #pragma warning disable CA1416
-    public TrayIcon CreateIcon()
+    public TrayIconWithContextMenu CreateIcon()
     {
 
-        using var icon = new System.Drawing.Icon(Path.Combine(AppContext.BaseDirectory, "Resources/icon.ico"));
+        var icon = new System.Drawing.Icon(Path.Combine(AppContext.BaseDirectory, "Resources", "icon.ico"));
 
         var trayIcon = new TrayIconWithContextMenu
         {
+            UseStandardTooltip = true,
+            ContextMenu = GenerateContextMenu(),
             Icon = icon.Handle,
-            ToolTip = "Egwene Service",
+            ToolTip = "Egwene Service"
         };
 
-        trayIcon.ContextMenu = new PopupMenu
-        {
-            Items =
-            {
-                new PopupMenuItem("Exit", (sender, args) =>
-                {
-                    trayIcon.Dispose();
-                    Environment.Exit(0);
-                }),
-            },
-        };
+        _trayIcon = trayIcon;
 
         return trayIcon;
     }
+
+
+
+    private PopupMenu GenerateContextMenu()
+    {
+        return new PopupMenu()
+        {
+            Items =
+            {
+                new PopupMenuSeparator(),
+                new PopupMenuItem("About", (_,_) => About()),
+                new PopupMenuItem("Config", (_,_) => Config()),
+                new PopupMenuSeparator(),
+                new PopupMenuItem("Exit", (_,_) => Quit()),
+                new PopupMenuSeparator(),
+            }
+        };
+    }
 #pragma warning restore CA1416
+
+    private void Quit()
+    {
+        _trayIcon.Dispose();
+        Environment.Exit(0);
+    }
+
+    private void About()
+    {
+        
+    }
+
+    private void Config()
+    {
+        
+    }
+
+    
 }
