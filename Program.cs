@@ -3,6 +3,7 @@ using EgweneService.Data;
 using EgweneService.Data.Local;
 using EgweneService.TrayIcon;
 using GLib;
+using Gtk;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -61,6 +62,7 @@ app.MapControllerRoute(
 var trayBuilder = new TrayBuilder();
 var trayIcon = trayBuilder.CreateIcon();
 
+trayIcon.ToolTip = "test";
 trayIcon.Create();
 
 app.Run();

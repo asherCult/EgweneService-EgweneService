@@ -26,8 +26,9 @@ public class TrayBuilder
         var trayIcon = new TrayIconWithContextMenu
         {
             Icon = icon.Handle,
-            ToolTip = "Egwene Service",
+            ToolTip = "Egwene Service"
         };
+
         
         trayIcon.ContextMenu = new PopupMenu
         {
