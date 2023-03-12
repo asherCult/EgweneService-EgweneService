@@ -21,7 +21,7 @@ public class TrayBuilder
     public TrayIcon CreateIcon()
     {
 
-        using var icon = new System.Drawing.Icon(Path.Combine(AppContext.BaseDirectory, "Resources", "icon.ico"));
+        var icon = new System.Drawing.Icon(Path.Combine(AppContext.BaseDirectory, "Resources", "icon.ico"));
 
         var trayIcon = new TrayIconWithContextMenu
         {
