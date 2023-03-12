@@ -23,7 +23,7 @@ public class TrayBuilder
 
         using var icon = new System.Drawing.Icon(Path.Combine(AppContext.BaseDirectory, "Resources/icon.ico"));
 
-        using var trayIcon = new TrayIconWithContextMenu
+        var trayIcon = new TrayIconWithContextMenu
         {
             Icon = icon.Handle,
             ToolTip = "Egwene Service",
